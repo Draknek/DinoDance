@@ -39,7 +39,7 @@ package
 		{
 			super.update();
 			
-			if (Math.random() < 0.1) {
+			if (Math.random() < 0.01) {
 				add(new Bone());
 			}
 		}

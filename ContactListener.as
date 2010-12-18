@@ -9,6 +9,7 @@ package
 	import Box2D.Dynamics.Contacts.*;
 	import Box2D.Collision.*;
 	import Box2D.Collision.Shapes.*;
+	import Box2D.Dynamics.Joints.*;
 	import Box2D.Common.Math.*;
 	
 	import flash.display.*;
@@ -38,25 +39,29 @@ package
 			
 			if (bone && floor) {
 				if (bone.world) bone.world.remove(bone);
-			}/*
+			}
 			
-			if (ball && block) {
-				if (block.body.GetType() != b2Body.b2_dynamicBody) {
-					Level.score.value += (Level.combo.value + 1) * 10;
-					
-					block.wakeUp();
-					
-					var f:b2Vec2 = n.Copy();
-					var size:Number = 10 * block.body.GetMass();
-					f.Multiply((block == a) ? size : -size);
-					block.body.ApplyImpulse(f, p);
-					
-					p.x = block.x;
-					p.y = block.y - block.h;
-					n.Multiply(-1);
-					//Level.addParticles(p, 0xFFFFFF, new b2Vec2(0, -1), new b2Vec2(0, -100));
-				}
-			}*/
+			if (bone && catcher) {
+				stick(bone, catcher, p);
+			}
+			
+			var bone2:Bone = (a is Bone && b is Bone) ? b as Bone : null;
+			
+			if (bone && bone2 && (bone.sticky || bone2.sticky)) {
+				stick(bone, bone2, p);
+			}
+		}
+		
+		public static function stick (a:b2Entity, b:b2Entity, p:b2Vec2):b2Joint
+		{
+			var jointDef:b2WeldJointDef = new b2WeldJointDef;
+			
+			jointDef.Initialize(a.body, b.body, p);
+			
+			if (a is Bone) Bone(a).sticky = true;
+			if (b is Bone) Bone(b).sticky = true;
+			
+			return b2Level.physics.CreateJoint(jointDef);
 		}
 	}
 }

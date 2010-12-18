@@ -9,6 +9,8 @@ package
 	
 	public class Bone extends b2Entity
 	{
+		public var sticky:Boolean = false;
+		
 		public function Bone ()
 		{
 			var s:Sprite = new Sprite;
