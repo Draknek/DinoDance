@@ -24,6 +24,7 @@ package
 		public var physics: b2World;
 		
 		public var sprite: Sprite;
+		public var debugSprite: Sprite;
 		
 		public static const SCALE:Number = 16;
 		
@@ -50,13 +51,12 @@ package
 			// set debug draw
 			if (DEBUG)
 			{
-				var debugSprite:Sprite = new Sprite();
-				sprite.addChild(debugSprite);
+				debugSprite = new Sprite();
 				var debugDraw:b2DebugDraw = new b2DebugDraw();
 				debugDraw.SetSprite(debugSprite);
-				//debugDraw.SetDrawScale(SCALE);
+				debugDraw.SetDrawScale(SCALE);
 				debugDraw.SetFillAlpha(0.3);
-				debugDraw.SetLineThickness(1.0);
+				debugDraw.SetLineThickness(0.0);
 				debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
 				physics.SetDebugDraw(debugDraw);
 				physics.DrawDebugData();
@@ -84,6 +84,7 @@ package
 		public override function begin (): void
 		{
 			FP.engine.addChild(sprite);
+			if (debugSprite) FP.engine.addChild(debugSprite);
 		}
 		
 		public override function end (): void
@@ -91,6 +92,7 @@ package
 			removeAll();
 			
 			FP.engine.removeChild(sprite);
+			if (debugSprite) FP.engine.removeChild(debugSprite);
 		}
 	}
 }

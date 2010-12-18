@@ -14,9 +14,17 @@ package
 	
 	public class Level extends b2Level
 	{
+		public var bonesLeft:int;
+		
+		[Embed(source="images/bg.png")]
+		public static const bgGfx: Class;
+		
 		public function Level ()
 		{
-			add(new Player());
+			addGraphic(new Stamp(bgGfx), 0);
+			
+			bonesLeft = 20 + Math.random()*20;
+			
 			add(new Catcher());
 			
 			add(new Floor());
@@ -39,8 +47,11 @@ package
 		{
 			super.update();
 			
-			if (Math.random() < 0.01) {
-				add(new Bone());
+			if (bonesLeft > 0) {
+				if (Math.random() < 0.01) {
+					add(new Bone());
+					bonesLeft--;
+				}
 			}
 		}
 		

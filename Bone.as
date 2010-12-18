@@ -11,18 +11,30 @@ package
 	{
 		public var sticky:Boolean = false;
 		
+		[Embed(source="images/bone.png")]
+		public static const boneGfx: Class;
+		
 		public function Bone ()
 		{
 			var s:Sprite = new Sprite;
 			
+			var bitmap:Bitmap = new boneGfx();
+			
 			var w:Number = Math.random() * 5 + 2;
 			var h:Number = Math.random() * 0.5 + 0.5;
 			
-			s.graphics.beginFill(0xFF0000);
-			s.graphics.drawRect(-w*0.5, -h*0.5, w, h);
-			s.graphics.endFill();
+			var w2:Number = w + h;
+			var h2:Number = h + h;
 			
-			super(Math.random()*(240/16) + 320/16, -240/16, {w:w, h:h}, s, {angle: Math.random()*Math.PI});
+			bitmap.x = -w2*0.5;
+			bitmap.y = -h2*0.5;
+			
+			bitmap.scaleX = w2 / bitmap.width;
+			bitmap.scaleY = h2 / bitmap.height;
+			
+			s.addChild(bitmap);
+			
+			super(Math.random()*(240/16) + 320/16, -240/16, {w:w, h:h}, s, {angle: Math.random()*Math.PI, angularVelocity: Math.random() - 0.5});
 		}
 	}
 }

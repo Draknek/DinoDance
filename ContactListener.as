@@ -47,7 +47,7 @@ package
 			
 			var bone2:Bone = (a is Bone && b is Bone) ? b as Bone : null;
 			
-			if (bone && bone2 && (bone.sticky || bone2.sticky)) {
+			if (bone && bone2 && (bone.sticky || bone2.sticky) && (!bone.sticky || !bone2.sticky)) {
 				stick(bone, bone2, p);
 			}
 		}
