@@ -19,7 +19,7 @@ package
 		public var paused:Boolean = false;
 		public var gameOver:Boolean = false;
 		
-		[Embed(source="images/bg.png")]
+		[Embed(source="images/bg.jpg")]
 		public static const bgGfx: Class;
 		
 		public var ui:Sprite = new Sprite;
@@ -61,7 +61,7 @@ package
 			super.update();
 			
 			if (bonesLeft > 0) {
-				if (Math.random() < 0.1) {
+				if (Math.random() < 0.01) {
 					add(new Bone());
 					bonesLeft--;
 				}
