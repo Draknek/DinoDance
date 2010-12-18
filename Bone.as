@@ -18,9 +18,9 @@ package
 		{
 			var s:Sprite = new Sprite;
 			
-			var bitmap:Bitmap = new boneGfx();
+			var bitmap:Bitmap = BoneGraphics.getBone();
 			
-			var w:Number = Math.random() * 5 + 2;
+			var w:Number = Math.random() * 4 + 3;
 			var h:Number = Math.random() * 0.5 + 0.5;
 			
 			var w2:Number = w + h;
@@ -34,7 +34,7 @@ package
 			
 			s.addChild(bitmap);
 			
-			super(Math.random()*(240/16) + 320/16, -240/16, {w:w, h:h}, s, {angle: Math.random()*Math.PI, angularVelocity: Math.random() - 0.5});
+			super(Math.random()*(240/16) + 320/16, -240/16, {w:w, h:h}, s, {angle: Math.random()*Math.PI, angularVelocity: Math.random()*8 - 4});
 		}
 	}
 }

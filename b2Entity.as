@@ -32,20 +32,25 @@ package
 			bodyDef.userData = this;
 			bodyDef.type = params.hasOwnProperty("type") ? params.type : b2Body.b2_dynamicBody;
 			bodyDef.inertiaScale = 3.0;
-			//bodyDef.linearDamping = 0.25;
-			//bodyDef.angularDamping = 1.0;
 			
-			if (params.hasOwnProperty("angle")) {
-				bodyDef.angle = params.angle;
+			for (var key:String in params) {
+				if (bodyDef.hasOwnProperty(key)) {
+					bodyDef[key] = params[key];
+				}
 			}
 			
 			body = b2Level.physics.CreateBody(bodyDef);
 			
 			var fixtureDef:b2FixtureDef = new b2FixtureDef();
+			fixtureDef.density = 1.0;
+			fixtureDef.restitution = 0.0;
+			fixtureDef.friction = 1.0;
 			
-			fixtureDef.density = params && params.hasOwnProperty("density") ? params.density : 1.0;
-			fixtureDef.friction = params.hasOwnProperty("friction") ? params.friction : 1.0;
-			fixtureDef.restitution = params.hasOwnProperty("restitution") ? params.restitution : 0.0;
+			for (key in params) {
+				if (fixtureDef.hasOwnProperty(key)) {
+					fixtureDef[key] = params[key];
+				}
+			}
 			
 			createShape(body, fixtureDef, shape);
 			
@@ -66,7 +71,7 @@ package
 		
 		public override function added (): void
 		{
-			/*if (! b2Level.DEBUG)*/ b2Level(world).sprite.addChild(sprite);
+			b2Level(world).sprite.addChild(sprite);
 		}
 		
 		public override function removed (): void

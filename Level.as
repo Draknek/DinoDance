@@ -16,8 +16,13 @@ package
 	{
 		public var bonesLeft:int;
 		
+		public var paused:Boolean = false;
+		public var gameOver:Boolean = false;
+		
 		[Embed(source="images/bg.png")]
 		public static const bgGfx: Class;
+		
+		public var ui:Sprite = new Sprite;
 		
 		public function Level ()
 		{
@@ -45,12 +50,40 @@ package
 		
 		public override function update (): void
 		{
+			if (Input.pressed(Key.R)) { FP.world = new Level; }
+			
+			if (Input.pressed(Key.P)) { paused = !paused; }
+			
+			if (Input.pressed(Key.D)) { debug = !debug; }
+			
+			if (paused) { return; }
+			
 			super.update();
 			
 			if (bonesLeft > 0) {
-				if (Math.random() < 0.01) {
+				if (Math.random() < 0.1) {
 					add(new Bone());
 					bonesLeft--;
+				}
+			}
+			
+			if (!gameOver && bonesLeft <= 0) {
+				var fallingCount:int = 0;
+				
+				var bones:Array = [];
+				
+				getClass(Bone, bones);
+				
+				for each (var b:Bone in bones) {
+					if (! b.sticky) {
+						fallingCount++;
+					}
+				}
+				
+				if (fallingCount == 0) {
+					ui.addChild(new MyTextField(320, 180, "Wow! You've discovered\na new type of dinosaur!\n\n Do you want to name it?", "center", 30));
+					
+					gameOver = true;
 				}
 			}
 		}
@@ -58,6 +91,18 @@ package
 		public override function render (): void
 		{
 			super.render();
+		}
+		
+		public override function begin (): void
+		{
+			super.begin();
+			FP.engine.addChild(ui);
+		}
+		
+		public override function end (): void
+		{
+			super.end();
+			FP.engine.removeChild(ui);
 		}
 	}
 }

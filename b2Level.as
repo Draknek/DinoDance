@@ -28,7 +28,7 @@ package
 		
 		public static const SCALE:Number = 16;
 		
-		public static const DEBUG:Boolean = false;
+		public static var debug:Boolean = false;
 		
 		public var m_velocityIterations:int = 10;
 		public var m_positionIterations:int = 10;
@@ -49,18 +49,14 @@ package
 			b2Level.physics = physics = new b2World(gravity, doSleep);
 			
 			// set debug draw
-			if (DEBUG)
-			{
-				debugSprite = new Sprite();
-				var debugDraw:b2DebugDraw = new b2DebugDraw();
-				debugDraw.SetSprite(debugSprite);
-				debugDraw.SetDrawScale(SCALE);
-				debugDraw.SetFillAlpha(0.3);
-				debugDraw.SetLineThickness(0.0);
-				debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-				physics.SetDebugDraw(debugDraw);
-				physics.DrawDebugData();
-			}
+			debugSprite = new Sprite();
+			var debugDraw:b2DebugDraw = new b2DebugDraw();
+			debugDraw.SetSprite(debugSprite);
+			debugDraw.SetDrawScale(SCALE);
+			debugDraw.SetFillAlpha(0.3);
+			debugDraw.SetLineThickness(0.0);
+			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+			physics.SetDebugDraw(debugDraw);
 		}
 		
 		public function createStaticBody (): void
@@ -70,15 +66,15 @@ package
 		
 		public override function update (): void
 		{
-			/*if (Input.pressed(Key.SPACE)) { paused = !paused; }
-			
-			if (paused || gameOver) { return; }*/
-			
 			physics.Step(1.0 / FP.assignedFrameRate, m_velocityIterations, m_positionIterations);
 
 			super.update();
 			
-			physics.DrawDebugData();
+			if (debug) {
+				physics.DrawDebugData();
+			} else {
+				debugSprite.graphics.clear();
+			}
 		}
 		
 		public override function begin (): void
