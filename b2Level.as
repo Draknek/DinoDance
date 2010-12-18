@@ -47,8 +47,6 @@ package
 			// Construct a world object
 			b2Level.physics = physics = new b2World(gravity, doSleep);
 			
-			//physics.SetContactListener(new ContactListener());
-			
 			// set debug draw
 			if (DEBUG)
 			{
@@ -63,35 +61,10 @@ package
 				physics.SetDebugDraw(debugDraw);
 				physics.DrawDebugData();
 			}
-			
-			// Vars used to create bodies
-			var bodyDef:b2BodyDef;
-			var boxShape:b2PolygonShape;
-			var fixtureDef:b2FixtureDef = new b2FixtureDef();
-			fixtureDef.friction = 0.0;
-			fixtureDef.restitution = 0.2;
-			
-			bodyDef = new b2BodyDef();
-			bodyDef.position.x = 0;
-			bodyDef.position.y = 0;
-			bodyDef.type = b2Body.b2_staticBody;
-			var body:b2Body = physics.CreateBody(bodyDef);
-			
-			boxShape = b2PolygonShape.AsEdge(new b2Vec2(0, 0), new b2Vec2(0, 480/SCALE));
-			fixtureDef.shape = boxShape;
-			body.CreateFixture(fixtureDef);
-			
-			boxShape = b2PolygonShape.AsEdge(new b2Vec2(0, 480/SCALE), new b2Vec2(640/SCALE, 480/SCALE));
-			fixtureDef.shape = boxShape;
-			body.CreateFixture(fixtureDef);
-			
-			boxShape = b2PolygonShape.AsEdge(new b2Vec2(640/SCALE, 480/SCALE), new b2Vec2(640/SCALE, 0));
-			fixtureDef.shape = boxShape;
-			body.CreateFixture(fixtureDef);
-			
-			boxShape = b2PolygonShape.AsEdge(new b2Vec2(640/SCALE, 0), new b2Vec2(0, 0));
-			fixtureDef.shape = boxShape;
-			body.CreateFixture(fixtureDef);
+		}
+		
+		public function createStaticBody (): void
+		{
 			
 		}
 		
