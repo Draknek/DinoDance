@@ -5,7 +5,7 @@ package
 	import net.flashpunk.masks.*;
 	import net.flashpunk.utils.*;
 	
-	public class Level extends World
+	public class Level extends b2Level
 	{
 		public function Level ()
 		{
