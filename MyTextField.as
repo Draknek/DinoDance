@@ -10,7 +10,7 @@ package
 		
 		public static var defaultFont : Font = new defaultFontSrc();
 		
-		public function MyTextField (_x: Number, _y: Number, _text: String, _align: String = TextFieldAutoSize.CENTER, textSize: Number = 16, _fontName: String = null)
+		public function MyTextField (_x: Number, _y: Number, _text: String, _align: String = "center", textSize: Number = 16, _fontName: String = null)
 		{
 			x = _x;
 			y = _y;

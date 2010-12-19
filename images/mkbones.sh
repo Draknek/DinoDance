@@ -13,14 +13,29 @@ cd bones
 for i in *.png
 do j=$(echo $i | sed s/.png//)
 echo "[Embed(source=\"images/bones/$i\")] public static const bone_${j}_Gfx: Class;"
-list="bone_${j}_Gfx, $list"
+bones="bone_${j}_Gfx, $bones"
 done
 
-echo "public static var bones:Array = [$list null];";
+cd bonus
+
+for i in *.png
+do j=$(echo $i | sed s/.png//)
+echo "[Embed(source=\"images/bones/bonus/$i\")] public static const bone_bonus_${j}_Gfx: Class;"
+bonus="bone_bonus_${j}_Gfx, $bonus"
+done
+
+echo "public static var bones:Array = [$bones null];";
+
+echo "public static var bonus:Array = [$bonus null];";
 
 echo "public static function getBone ():Bitmap {
 	var i:int = Math.random() * (bones.length - 1);
 	return new (bones[i]);
+}
+
+public static function getBonus ():Bitmap {
+	var i:int = Math.random() * (bonus.length - 1);
+	return new (bonus[i]);
 }
 
 }

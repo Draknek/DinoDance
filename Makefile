@@ -9,7 +9,7 @@ endif
 all: BoneGraphics.as
 	fcsh-wrap -optimize=true -output $(OUTPUT) -static-link-runtime-shared-libraries=true -compatibility-version=3.0.0 --target-player=10.0.0 -compiler.debug=$(DEBUG_FLAG) Preloader.as -frames.frame mainframe Main
 
-BoneGraphics.as: images/bones
+BoneGraphics.as: images/bones images/bones/bonus images/mkbones.sh
 	cd images && sh mkbones.sh > ../BoneGraphics.as
 
 clean:

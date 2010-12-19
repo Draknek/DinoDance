@@ -97,7 +97,7 @@ package
 			} else if (shape is b2Shape) {
 				fixtureDef.shape = shape as b2Shape;
 			} else if (shape is Number) {
-				
+				fixtureDef.shape = new b2CircleShape(shape as Number);
 			} else if (shape.hasOwnProperty("w") && shape.hasOwnProperty("h")) {
 				var w:Number = shape.w * 0.5;
 				var h:Number = shape.h * 0.5;
