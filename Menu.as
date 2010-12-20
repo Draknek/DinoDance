@@ -58,10 +58,10 @@ package
 			if (list.length) {
 				button.y = 160;
 				
-				var hereY:Number = 160 + 60 + list.length * 30;
-				
-				for each (var dino:Object in list) {
-					
+				var hereY:Number = 160 + 30 + list.length * 30;
+				for (var i:int = 0; i < list.length; i++) {
+					var dino:Object = list[i];
+
 					var useDino:DisplayObject = addDinoButton(dino);
 					useDino.y = hereY;
 					
