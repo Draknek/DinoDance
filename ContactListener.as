@@ -16,6 +16,8 @@ package
 	
 	public class ContactListener extends b2ContactListener
 	{
+		public var doStuff:Boolean = true;
+		
 		private static function test (a:b2Entity, b:b2Entity, c:Class):b2Entity {
 			if (a is c) return a;
 			if (b is c) return b;
@@ -24,6 +26,8 @@ package
 		
 		public override function PostSolve (contact:b2Contact, impulse:b2ContactImpulse):void
 		{
+			if (! doStuff) return;
+			
 			var a:b2Entity = contact.GetFixtureA().GetBody().GetUserData() as b2Entity;
 			var b:b2Entity = contact.GetFixtureB().GetBody().GetUserData() as b2Entity;
 			
