@@ -247,9 +247,6 @@ package
 			
 			getClass(Bone, bones);
 			
-			data.name = name;
-			data.creator = creator;
-			
 			var offset:Number = classFirst(Catcher).x;
 			
 			var bytes:ByteArray = new ByteArray;
@@ -261,23 +258,10 @@ package
 				encodeBone(b, bytes, offset);
 			}
 			
+			data.name = name;
+			data.creator = creator;
 			data.data = bytes;
 
-			var request:URLRequest = new URLRequest(Main.url + "submit.php");
-			request.method = URLRequestMethod.POST;
-
-			var vars:URLVariables = new URLVariables();
-				vars.name = name;
-				vars.creator = creator;
-				vars.data = Base64.encode(bytes);
-
-			request.data = vars;
-			
-			var loader:URLLoader = new URLLoader();
-			//loader.dataFormat = URLLoaderDataFormat.VARIABLES;
-			loader.addEventListener(Event.COMPLETE, doComplete);
-			loader.load(request);
-			
 			var list:Array = getDinoList();
 			
 			i = list.length;
@@ -285,13 +269,34 @@ package
 			so.data.dinos[i] = data;
 			so.flush();
 			
+			submitDino(data, i);
+		}
+		
+		public static function submitDino (dino:Object, i:int, level:Level = null):void
+		{
+			var request:URLRequest = new URLRequest(Main.url + "submit.php");
+			request.method = URLRequestMethod.POST;
+
+			var vars:URLVariables = new URLVariables();
+				vars.name = dino.name;
+				vars.creator = dino.creator;
+				vars.data = Base64.encode(dino.data);
+
+			request.data = vars;
+			
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, doComplete);
+			loader.load(request);
+			
 			function doComplete ():void
 			{
-				serverID = loader.data;
+				var id:String = loader.data;
 				
-				data.serverID = loader.data;
-				so.data.dinos[i].serverID = loader.data;
-				so.flush();
+				if (level) level.serverID = id;
+				
+				dino.serverID = id;
+				Level.so.data.dinos[i].serverID = id;
+				Level.so.flush();
 			}
 		}
 		
@@ -310,15 +315,15 @@ package
 			bytes.writeFloat(h);
 		}
 		
-		private function getDinoList ():Array
+		public static function getDinoList ():Array
 		{
-			if (so.data.dinos) return so.data.dinos;
+			if (Level.so.data.dinos) return Level.so.data.dinos;
 			
-			so.data.dinos = new Array;
+			Level.so.data.dinos = new Array;
 			
-			so.flush();
+			Level.so.flush();
 			
-			return so.data.dinos;
+			return Level.so.data.dinos;
 		}
 		
 		public static function buildDino (world:World, bytes:ByteArray, offset:Number):Object

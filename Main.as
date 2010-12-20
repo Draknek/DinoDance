@@ -34,6 +34,16 @@ package
 			super.init();
 			
 			//FP.console.enable();
+			
+			var list:Array = Level.getDinoList();
+			
+			for (var i:int = 0; i < list.length; i++) {
+				var dino:Object = list[i];
+				
+				if (! dino.serverID || dino.serverID.substr(0, 1) == '!') {
+					Level.submitDino(dino, i);
+				}
+			}
 		}
 		
 		public function sitelock (allowed:*):Boolean
