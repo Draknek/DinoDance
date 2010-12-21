@@ -121,7 +121,7 @@ package
 					if (bIsNew) {
 						var tweet:DisplayObject = new TweetButton(dinoB.name, dinoB.serverID);
 						tweet.x = 320 - tweet.width*0.5;
-						tweet.y = 210;
+						tweet.y = 200;
 						ui.addChild(tweet);
 					}
 				}

@@ -190,7 +190,7 @@ package
 						
 						var tweet:DisplayObject = new TweetButton(name, serverID);
 						tweet.x = 320 - tweet.width*0.5;
-						tweet.y = 215;
+						tweet.y = 235;
 						ui.addChild(tweet);
 					}
 					
@@ -274,7 +274,7 @@ package
 			so.data.dinos[i] = data;
 			so.flush();
 			
-			submitDino(data, i);
+			submitDino(data, i, this);
 		}
 		
 		public static function submitDino (dino:Object, i:int, level:Level = null):void

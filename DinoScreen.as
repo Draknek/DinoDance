@@ -69,7 +69,7 @@ package
 			if (isYours) {
 				var tweet:DisplayObject = new TweetButton(name, serverID);
 				tweet.x = 320 - tweet.width*0.5;
-				tweet.y = 65;
+				tweet.y = 145;
 				ui.addChild(tweet);
 				return;
 			}
