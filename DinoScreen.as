@@ -66,7 +66,13 @@ package
 			
 			ui.addChild(new MyTextField(320, 10, name + "\nwas discovered by\n" + creator + "\n\n" + challengeString, "center", 20));
 			
-			if (isYours) return;
+			if (isYours) {
+				var tweet:DisplayObject = new TweetButton(name, serverID);
+				tweet.x = 320 - tweet.width*0.5;
+				tweet.y = 65;
+				ui.addChild(tweet);
+				return;
+			}
 			
 			var newDino:Button = new Button("Find a new dinosaur", 20);
 			

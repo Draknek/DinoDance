@@ -117,6 +117,13 @@ package
 					
 					ui.addChild(new MyTextField(320, 150, (bIsNew ? "Here" : "Remember, here") + "'s the link to your dinosaur:", "center", 20));
 					ui.addChild(Level.makeURLText(dinoB.serverID, 175));
+					
+					if (bIsNew) {
+						var tweet:DisplayObject = new TweetButton(dinoB.name, dinoB.serverID);
+						tweet.x = 320 - tweet.width*0.5;
+						tweet.y = 210;
+						ui.addChild(tweet);
+					}
 				}
 			}
 		}

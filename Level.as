@@ -187,6 +187,11 @@ package
 						ui.addChild(new MyTextField(320, 180, "Send this link to your friends", "center", 20));
 					} else {
 						ui.addChild(new MyTextField(320, 180, "Send this link to your friends\nto challenge them to a dance-off", "center", 20));
+						
+						var tweet:DisplayObject = new TweetButton(name, serverID);
+						tweet.x = 320 - tweet.width*0.5;
+						tweet.y = 215;
+						ui.addChild(tweet);
 					}
 					
 					ui.addChild(urlText);
